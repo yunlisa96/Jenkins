@@ -1,55 +1,44 @@
 # Jenkins Practice
 
-Jenkins CI/CD 실습용 숫자 야구(Number Baseball) Java 프로젝트입니다.
+Jenkins의 기본 사용 방법과 CI(지속적 통합) 흐름을 학습하기 위해 진행한 실습 프로젝트입니다.
+
+## 프로젝트 개요
+
+Java로 작성한 숫자 야구(Number Baseball) 게임을 GitHub 저장소에 업로드한 후 Jenkins와 연동하여 자동 빌드를 수행하였습니다.
+
+## 사용 기술
+
+* Jenkins
+* Git / GitHub
+* Java
+* Docker
+
+## 실습 내용
+
+* GitHub 저장소와 Jenkins 연동
+* Jenkins Freestyle Project 생성
+* Git 저장소의 소스 코드 자동 조회(Build)
+* Jenkins Console Output을 통한 빌드 로그 확인
+* 브랜치(main/master) 설정 오류 해결
+* 소스 코드 경로 설정 오류 해결
 
 ## 프로젝트 구조
 
-```
+```text
 Jenkins/
-├── Jenkinsfile
-├── pom.xml
 ├── README.md
-└── src/main/java/NumberBaseballGame.java
+├── src
+└── NumberBaseballGame.java
 ```
 
 ## 게임 규칙
 
-- 컴퓨터가 1~9 사이의 **서로 다른 4자리** 숫자를 생성합니다.
-- 플레이어는 4자리 숫자를 한 자리씩 입력합니다.
-- **Strike**: 숫자와 위치가 모두 일치
-- **Ball**: 숫자만 일치 (위치 다름)
-- 4 Strike면 승리
-- 종료: `-1` 입력
+* 컴퓨터가 1~9 사이의 서로 다른 4개의 숫자를 생성
+* 플레이어는 숫자 4개를 입력
+* Strike : 숫자와 위치가 모두 일치
+* Ball : 숫자는 일치하지만 위치가 다름
+* 4 Strike 달성 시 게임 종료
 
-## 로컬 실행
+## Jenkins 빌드 결과
 
-```bash
-mvn clean package
-java -jar target/jenkins-1.0-SNAPSHOT.jar
-```
-
-## Jenkins 설정
-
-1. **New Item** → **Pipeline**
-2. **Pipeline script from SCM** → Git
-3. Repository URL: `https://github.com/yunlisa96/Jenkins.git`
-4. Script Path: `Jenkinsfile`
-
-### 필요 도구 (Manage Jenkins → Tools)
-
-| Jenkinsfile | 등록 이름 |
-|-------------|-----------|
-| `jdk 'JDK-17'` | JDK 17 |
-| `maven 'Maven-3.9'` | Maven 3.9 |
-
-Jenkins에 등록된 도구 이름이 다르면 `Jenkinsfile`의 `tools` 블록을 수정하세요.
-
-## 빌드
-
-파이프라인은 아래 명령으로 컴파일 및 JAR 패키징을 수행합니다.
-
-```bash
-mvn clean package -B
-```
-
-빌드 성공 시 `target/*.jar` 파일이 아카이브됩니다.
+GitHub 저장소의 소스 코드를 Jenkins가 자동으로 가져와 빌드를 수행하였으며, 빌드 로그를 통해 성공 여부를 확인하였다.
